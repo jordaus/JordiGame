@@ -27,9 +27,19 @@ namespace JordiGame
 
         private short animationFrame = 1;
 
-        public Look Look;   
+        public Look Look;
 
-        public Vector2 position;
+        private Vector2 _position; 
+        public Vector2 Position
+        {
+            get { return _position; }
+            set
+            {
+                _position = value;
+                this.bounds = new BoundingCircle(_position + new Vector2(8, 8), 8);
+            }
+        }
+        
 
         public Vector2 velocity;
 
@@ -44,8 +54,8 @@ namespace JordiGame
 
         public AlienShipSprite(Vector2 position)
         {
-            this.position = position;
-            this.bounds = new BoundingCircle(position - new Vector2(-8,-8), 8);
+            this.Position = position;
+            this.bounds = new BoundingCircle(position + new Vector2(8,8), 8);
         }
 
         public void LoadContent(ContentManager content)
@@ -103,7 +113,7 @@ namespace JordiGame
 
             //draws the sprite
             var source = new Rectangle(animationFrame * 16, 0, 16, 24);
-            spriteBatch.Draw(texture, position, source, Color.White, 0f, new Vector2(0,0), 2, SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, Position, source, Color.White, 0f, new Vector2(0,0), 2, SpriteEffects.None, 0);
         }
 
     }

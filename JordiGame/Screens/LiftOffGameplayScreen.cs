@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using JordiGame.Collisions;
 
 namespace JordiGame.Screens
@@ -16,6 +18,9 @@ namespace JordiGame.Screens
         private AlienShipSprite[] alien;
         private ContentManager _content;
         private BoundingCircle bounds;
+        private SoundEffect alienPickup;
+        private Song backgroundMusic;
+        private SpriteFont font;
         public bool Hit { get; set; } = false;
         private int alienCount;
 
@@ -47,6 +52,10 @@ namespace JordiGame.Screens
             lander.LoadContent(_content);
             foreach (var a in alien) a.LoadContent(_content);
             ball = _content.Load<Texture2D>("ball");
+            alienPickup = _content.Load<SoundEffect>("Pickup_Coin10");
+            backgroundMusic = _content.Load<Song>("G O L D snippet");
+            font = _content.Load<SpriteFont>("font");
+            MediaPlayer.Play(backgroundMusic);
         }
 
         /// <summary>
@@ -62,13 +71,19 @@ namespace JordiGame.Screens
             lander.Update(gameTime);
             foreach (var a in alien)
             {
-                a.position += new Vector2(1, 0) * 3 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                a.Position += new Vector2(1, 0) * 3 * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 //a.Update(gameTime);
                 if (!a.Collected && a.Bounds.CollidesWith(lander.Bounds))
                 {
                     lander.Color = Color.Red;
                     a.Collected = true;
-
+                    alienPickup.Play();
+                    alienCount--;
+                    if(alienCount == 0)
+                    {
+                        LiftOffInfoScreen liftOffInfo = new LiftOffInfoScreen();
+                        ScreenManager.AddScreen(liftOffInfo, ControllingPlayer);
+                    }
                 }
             }
             
@@ -83,6 +98,8 @@ namespace JordiGame.Screens
         {
             // TODO: Add your drawing code here
             ScreenManager.SpriteBatch.Begin();
+            ScreenManager.SpriteBatch.DrawString(font, "Welcome To The Alien Catcher Mini-Game", new Vector2(100, 350), Color.White);
+            ScreenManager.SpriteBatch.DrawString(font, "Press The Space Bar to move the Lander", new Vector2(100, 400), Color.White);
             lander.Draw(gameTime, ScreenManager.SpriteBatch);
             foreach (var a in alien) 
             {

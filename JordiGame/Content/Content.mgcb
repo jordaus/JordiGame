@@ -44,6 +44,12 @@
 /processorParam:TextureFormat=Compressed
 /build:font.spritefont
 
+#begin G O L D snippet.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:G O L D snippet.mp3
+
 #begin jg.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -79,6 +85,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:PC.png
+
+#begin Pickup_Coin10.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Pickup_Coin10.wav
 
 #begin pixil-frame-0.png
 /importer:TextureImporter

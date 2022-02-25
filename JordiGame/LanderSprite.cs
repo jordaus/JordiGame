@@ -60,8 +60,8 @@ namespace JordiGame
 
             velocity += acceleration * t;
             position += velocity * t;
-            bounds.X = position.X - 16;
-            bounds.Y = position.Y - 16;
+            bounds.X = position.X - 20;
+            bounds.Y = position.Y - 20;
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace JordiGame
         /// <param name="spriteBatch">The SpriteBatch to draw with</param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, null, Color.White, 0f, new Vector2(0,0), 0.5f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, position, null, Color.White, 0f, new Vector2(56.5f,51.5f), 0.5f, SpriteEffects.None, 0f);
         }
     }
 }
