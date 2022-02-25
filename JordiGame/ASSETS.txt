@@ -1,3 +1,5 @@
 ﻿Evil PC sprite by HikkiHuy, released as freeware, accessed from https://hikkihuy.itch.io/evil-pc
 Spaceship Sprite by Tavio, released as freeware, accessed from https://tavino.itch.io/spaceship
+Pickup_Coin10 Sound was made with the bfxr software
+G O L D Snippet was created by my with FLStudio, however I did sample the music from Pokemon Gold/Silver
 All other sprites were created by me (Do we have to refrence ourselves?)
