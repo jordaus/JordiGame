@@ -27,6 +27,8 @@ namespace JordiGame
 
         private short animationFrame = 1;
 
+        public Color Color { get; set; } = Color.White;
+
         public Look Look;
 
         private Vector2 _position; 

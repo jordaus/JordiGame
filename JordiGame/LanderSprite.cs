@@ -12,7 +12,7 @@ namespace JordiGame
     public class LanderSprite
     {
         Texture2D texture;
-        Vector2 position;
+        public Vector2 position;
         Vector2 velocity;
 
         private BoundingRectangle bounds = new BoundingRectangle(new Vector2(200 - 16, 200 - 16), 32, 32);
@@ -23,6 +23,8 @@ namespace JordiGame
         public BoundingRectangle Bounds => bounds;
 
         public Color Color { get; set; } = Color.White;
+
+        public float rotation = 0f;
 
         /// <summary>
         /// Constructs a new lander sprite 
@@ -57,11 +59,29 @@ namespace JordiGame
             {
                 acceleration += new Vector2(0, -80);
             }
+            if (keyboardState.IsKeyDown(Keys.A))
+            {
+                rotation += 0.25f;
+            }
+            if (keyboardState.IsKeyDown(Keys.D))
+            {
+                rotation -= 0.25f;
+            }
 
             velocity += acceleration * t;
             position += velocity * t;
             bounds.X = position.X - 20;
             bounds.Y = position.Y - 20;
+        }
+
+        public void BounceX()
+        {
+            velocity.X *= -1;
+        }
+
+        public void BounceY()
+        {
+            velocity.Y *= -1;
         }
 
         /// <summary>
@@ -71,7 +91,7 @@ namespace JordiGame
         /// <param name="spriteBatch">The SpriteBatch to draw with</param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, null, Color.White, 0f, new Vector2(56.5f,51.5f), 0.5f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(texture, position, null, Color, rotation, new Vector2(56.5f,51.5f), 0.5f, SpriteEffects.None, 0f);
         }
     }
 }
