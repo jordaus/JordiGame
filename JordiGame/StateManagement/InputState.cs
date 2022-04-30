@@ -18,9 +18,11 @@ namespace JordiGame.StateManagement
 
         public readonly KeyboardState[] CurrentKeyboardStates;
         public readonly GamePadState[] CurrentGamePadStates;
+        public readonly MouseState[] MouseStates;
 
         private readonly KeyboardState[] _lastKeyboardStates;
         private readonly GamePadState[] _lastGamePadStates;
+        private readonly MouseState[] _lastMouseStates;
 
         public readonly bool[] GamePadWasConnected;
 
@@ -31,9 +33,11 @@ namespace JordiGame.StateManagement
         {
             CurrentKeyboardStates = new KeyboardState[MaxInputs];
             CurrentGamePadStates = new GamePadState[MaxInputs];
+            MouseStates = new MouseState[MaxInputs];
 
             _lastKeyboardStates = new KeyboardState[MaxInputs];
             _lastGamePadStates = new GamePadState[MaxInputs];
+            _lastMouseStates = new MouseState[MaxInputs];
 
             GamePadWasConnected = new bool[MaxInputs];
         }
@@ -45,9 +49,11 @@ namespace JordiGame.StateManagement
             {
                 _lastKeyboardStates[i] = CurrentKeyboardStates[i];
                 _lastGamePadStates[i] = CurrentGamePadStates[i];
+                _lastMouseStates[i] = MouseStates[i];
 
                 CurrentKeyboardStates[i] = Keyboard.GetState();
                 CurrentGamePadStates[i] = GamePad.GetState((PlayerIndex)i);
+                MouseStates[i] = Mouse.GetState();
 
                 // Keep track of whether a gamepad has ever been
                 // connected, so we can detect if it is unplugged.
@@ -104,6 +110,16 @@ namespace JordiGame.StateManagement
                     IsButtonPressed(button, PlayerIndex.Two, out playerIndex) ||
                     IsButtonPressed(button, PlayerIndex.Three, out playerIndex) ||
                     IsButtonPressed(button, PlayerIndex.Four, out playerIndex);
+        }
+
+        public bool IsMouseClicked()
+        {
+            return MouseStates[0].LeftButton == ButtonState.Pressed;
+        }
+
+        public bool IsNewMouseClicked()
+        {
+            return MouseStates[0].LeftButton == ButtonState.Pressed && _lastMouseStates[0].LeftButton == ButtonState.Released;
         }
 
 

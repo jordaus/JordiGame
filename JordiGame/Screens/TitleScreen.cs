@@ -67,6 +67,7 @@ namespace JordiGame.Screens
             imgVelocity *= 100;
             imgVelocity2 *= 200;
             imgVelocity3 *= 50;
+            
             LoadContent();
             
         }
@@ -87,7 +88,7 @@ namespace JordiGame.Screens
         public override void HandleInput(GameTime gameTime, StateManagement.InputState input) 
         {
             PlayerIndex player;
-            if(input.IsKeyPressed(Keys.Enter, null, out player))
+            if(input.IsKeyPressed(Keys.Enter, null, out player) || input.IsMouseClicked())
             {
                 LiftOffGameplayScreen liftOffGameplay = new LiftOffGameplayScreen();
                 ScreenManager.AddScreen(liftOffGameplay, player);

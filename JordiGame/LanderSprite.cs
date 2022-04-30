@@ -51,15 +51,16 @@ namespace JordiGame
         public void Update(GameTime gameTime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
+            MouseState mouseState = Mouse.GetState();
             float t = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             //F = ma
             Vector2 acceleration = new Vector2(0, 30);
-            if (keyboardState.IsKeyDown(Keys.Space))
+            if (keyboardState.IsKeyDown(Keys.Space) || mouseState.LeftButton == ButtonState.Pressed)
             {
                 acceleration += new Vector2(0, -80);
             }
-            if (keyboardState.IsKeyDown(Keys.A))
+            if (keyboardState.IsKeyDown(Keys.A) || mouseState.RightButton == ButtonState.Pressed)
             {
                 rotation += 0.25f;
             }

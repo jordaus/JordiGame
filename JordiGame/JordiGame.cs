@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace JordiGame
 {
-    public class JordiGame : Game
+    public class JordiGame : Game, IParticleEmitter
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
@@ -22,6 +22,9 @@ namespace JordiGame
         private SpriteFont impact;
         private SpriteFont uno;
         private CPUSprite computer;
+        public Vector2 Position { get; set; }
+        public Vector2 Velocity { get; set; }
+
 
         private StateManagement.ScreenManager screenManager;
 
@@ -41,7 +44,9 @@ namespace JordiGame
         {
             // TODO: Add your initialization logic here
             screenManager.Initialize();
-            
+            PixieParticleSystem pixie = new PixieParticleSystem(this, this);
+            Components.Add(pixie);
+
             base.Initialize();
         }
 
@@ -57,6 +62,10 @@ namespace JordiGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             screenManager.Update(gameTime);
+            MouseState currentMouse = Mouse.GetState();
+            Vector2 mousePosition = new Vector2(currentMouse.X, currentMouse.Y);
+            Velocity = mousePosition - Position;
+            Position = mousePosition;
             base.Update(gameTime);
         }
 
